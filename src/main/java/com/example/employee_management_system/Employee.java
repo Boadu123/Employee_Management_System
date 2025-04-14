@@ -1,6 +1,5 @@
 package com.example.employee_management_system;
 
-
 public class Employee<T> implements Comparable<Employee<T>> {
     private T employeeID;
     private String name;
