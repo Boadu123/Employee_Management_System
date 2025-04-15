@@ -1,5 +1,7 @@
 package com.example.employee_management_system;
 
+import java.util.List;
+
 public class Employee<T> implements Comparable<Employee<T>> {
     private T employeeID;
     private String name;
@@ -18,7 +20,6 @@ public class Employee<T> implements Comparable<Employee<T>> {
         this.yearsOfExperience = yearsOfExperience;
         this.isActive = isActive;
     }
-
 
 //    Getters
     public T getEmployeeID() {
@@ -82,5 +83,26 @@ public class Employee<T> implements Comparable<Employee<T>> {
     @Override
     public int compareTo(Employee<T> other){
         return Integer.compare(other.yearsOfExperience, this.yearsOfExperience);
+    }
+
+    public void displayEmployeesWithForEach(List<Employee<T>> employees) {
+        System.out.printf("%-10s %-15s %-15s %-10s %-20s %-20s %-10s%n",
+                "ID", "Name", "Department", "Salary", "Performance Rating", "Experience (Years)", "Active");
+
+        for (Employee<T> emp : employees) {
+            System.out.printf("%-10s %-15s %-15s %-10.2f %-20.1f %-20d %-10b%n",
+                    emp.getEmployeeID(), emp.getName(), emp.getDepartment(), emp.getSalary(),
+                    emp.getPerformanceRating(), emp.getYearsOfExperience(), emp.getIsActive());
+        }
+    }
+
+    public void displayEmployeesWithStreams(List<Employee<T>> employees) {
+        System.out.printf("%-10s %-15s %-15s %-10s %-20s %-20s %-10s%n",
+                "ID", "Name", "Department", "Salary", "Performance Rating", "Experience (Years)", "Active");
+
+        employees
+                .forEach(emp -> System.out.printf("%-10s %-15s %-15s %-10.2f %-20.1f %-20d %-10b%n",
+                        emp.getEmployeeID(), emp.getName(), emp.getDepartment(), emp.getSalary(),
+                        emp.getPerformanceRating(), emp.getYearsOfExperience(), emp.getIsActive()));
     }
 }
