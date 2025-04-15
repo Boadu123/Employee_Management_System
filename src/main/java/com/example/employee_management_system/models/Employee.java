@@ -1,4 +1,4 @@
-package com.example.employee_management_system;
+package com.example.employee_management_system.models;
 
 import java.util.List;
 
@@ -85,7 +85,7 @@ public class Employee<T> implements Comparable<Employee<T>> {
         return Integer.compare(other.yearsOfExperience, this.yearsOfExperience);
     }
 
-    public void displayEmployeesWithForEach(List<Employee<T>> employees) {
+    public void displayEmployeesWith(List<Employee<T>> employees) {
         System.out.printf("%-10s %-15s %-15s %-10s %-20s %-20s %-10s%n",
                 "ID", "Name", "Department", "Salary", "Performance Rating", "Experience (Years)", "Active");
 

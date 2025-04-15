@@ -1,6 +1,6 @@
 package com.example.employee_management_system.utils;
 
-import com.example.employee_management_system.Employee;
+import com.example.employee_management_system.models.Employee;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -25,8 +25,9 @@ public class SalaryManagement<T> {
 
     // Get top 5 highest-paid employees
     public List<Employee<T>> getTop5HighestPaid() {
+        EmployeeSalaryComparator<T> comparator = new EmployeeSalaryComparator<>();
         return employees.stream()
-                .sorted(Comparator.comparingDouble((Employee<?> emp) -> emp.getSalary()).reversed())
+                .sorted(comparator)
                 .limit(5)
                 .collect(Collectors.toList());
     }

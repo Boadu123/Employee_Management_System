@@ -1,6 +1,6 @@
 package com.example.employee_management_system.utils;
 
-import com.example.employee_management_system.Employee;
+import com.example.employee_management_system.models.Employee;
 import java.util.Comparator;
 
 public class EmployeeSalaryComparator<T> implements Comparator<Employee<T>> {

@@ -1,4 +1,4 @@
-package com.example.employee_management_system;
+package com.example.employee_management_system.models;
 
 import java.util.Collection;
 import java.util.HashMap;
