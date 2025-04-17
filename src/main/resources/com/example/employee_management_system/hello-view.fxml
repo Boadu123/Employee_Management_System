@@ -1,16 +1,235 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.collections.FXCollections?>
 
-<?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.employee_management_system.HelloController">
-  <padding>
-    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-  </padding>
+<?import java.lang.String?>
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.employee_management_system.HelloController"
+            style="-fx-background-color: #f5f5f5;">
+  <center>
+    <TabPane tabClosingPolicy="UNAVAILABLE" style="-fx-background-color: #ffffff; -fx-border-color: #e0e0e0; -fx-border-width: 1;">
 
-  <Label fx:id="welcomeText"/>
-  <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+      <!-- First Tab - Manage Employees -->
+      <Tab text="Manage Employees">
+        <VBox spacing="15" style="-fx-background-color: #ffffff; -fx-padding: 20;">
+          <Label text="Manage Employees" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+
+          <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding: 0 0 10 0;">
+            <Label text="Select Action:" style="-fx-font-weight: bold; -fx-text-fill: #34495e;"/>
+            <ComboBox fx:id="employeeActionSelector" onAction="#onEmployeeActionSelect"
+                      style="-fx-background-color: #ecf0f1; -fx-border-color: #bdc3c7;">
+              <items>
+                <FXCollections fx:factory="observableArrayList">
+                  <String fx:value="Add Employee"/>
+                  <String fx:value="Remove Employee"/>
+                  <String fx:value="Update Employee"/>
+                  <String fx:value="View All Employees"/>
+                </FXCollections>
+              </items>
+            </ComboBox>
+          </HBox>
+
+          <StackPane fx:id="employeeFormContainer" style="-fx-padding: 10; -fx-background-color: #ecf0f1; -fx-border-radius: 5; -fx-border-color: #bdc3c7; -fx-border-width: 1;">
+
+            <!-- Add Employee Form -->
+            <VBox fx:id="addEmployeeForm" spacing="10" visible="false">
+              <Label text="Add Employee" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #2980b9;"/>
+              <GridPane hgap="10" vgap="10">
+                <columnConstraints>
+                  <ColumnConstraints percentWidth="40"/>
+                  <ColumnConstraints percentWidth="60"/>
+                </columnConstraints>
+
+                <Label text="Employee ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <TextField fx:id="addIdField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                <Label text="Name:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <TextField fx:id="addNameField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                <Label text="Department:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <TextField fx:id="addDepartmentField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                <Label text="Salary:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <TextField fx:id="addSalaryField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                <Label text="Performance Rating:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                <TextField fx:id="addPerformanceField" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+                <Label text="Years of Experience:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                <TextField fx:id="addExperienceField" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+                <Label text="Is Active:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+                <CheckBox fx:id="addIsActiveCheckbox" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+              </GridPane>
+              <Button text="Submit" onAction="#onSubmitAddEmployee"
+                      style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold;"/>
+            </VBox>
+
+            <!-- Remove Employee Form -->
+            <VBox fx:id="removeEmployeeForm" spacing="10" visible="false">
+              <Label text="Remove Employee" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #c0392b;"/>
+              <GridPane hgap="10" vgap="10">
+                <columnConstraints>
+                  <ColumnConstraints percentWidth="40"/>
+                  <ColumnConstraints percentWidth="60"/>
+                </columnConstraints>
+                <Label text="Employee ID:"/>
+                <TextField fx:id="removeIdField" GridPane.columnIndex="1"/>
+              </GridPane>
+              <Button text="Remove" onAction="#onSubmitRemoveEmployee"
+                      style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold;"/>
+            </VBox>
+
+            <!-- Update Employee Form -->
+            <VBox fx:id="updateEmployeeForm" spacing="10" visible="false">
+              <Label text="Update Employee" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #f39c12;"/>
+              <GridPane hgap="10" vgap="10">
+                <columnConstraints>
+                  <ColumnConstraints percentWidth="40"/>
+                  <ColumnConstraints percentWidth="60"/>
+                </columnConstraints>
+
+                <Label text="Employee ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <TextField fx:id="updateIdField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                <Label text="Name:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <TextField fx:id="updateNameField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                <Label text="Department:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <TextField fx:id="updateDepartmentField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                <Label text="Salary:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <TextField fx:id="updateSalaryField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                <Label text="Performance Rating:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                <TextField fx:id="updatePerformanceField" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+                <Label text="Years of Experience:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                <TextField fx:id="updateExperienceField" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+                <Label text="Is Active:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+                <CheckBox fx:id="updateIsActiveCheckbox" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+              </GridPane>
+              <Button text="Update" onAction="#onSubmitUpdateEmployee"
+                      style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold;"/>
+            </VBox>
+
+            <!-- View All Employees -->
+            <VBox fx:id="viewAllEmployeesForm" spacing="10" visible="false">
+              <Label text="All Employees" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #16a085;"/>
+<!--              <TextArea fx:id="employeeDisplayArea" editable="false" wrapText="true"-->
+<!--                        style="-fx-font-family: 'Consolas'; -fx-font-size: 12;"/>-->
+              <TextArea fx:id="employeeDisplayArea" editable="false" wrapText="true" prefHeight="300" style="-fx-font-family: 'Courier New';"/>
+
+              <Button text="Refresh" onAction="#onRefreshEmployeeList"
+                      style="-fx-background-color: #9b59b6; -fx-text-fill: white; -fx-font-weight: bold;"/>
+            </VBox>
+          </StackPane>
+        </VBox>
+      </Tab>
+
+      <!-- Second Tab - Search Employees -->
+      <Tab text="Search Employees">
+        <VBox spacing="15" style="-fx-background-color: #ffffff; -fx-padding: 20;">
+          <Label text="Search Employees" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+
+          <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding: 0 0 10 0;">
+            <Label text="Search By:" style="-fx-font-weight: bold; -fx-text-fill: #34495e;"/>
+            <ComboBox fx:id="searchOptionSelector" onAction="#onSearchOptionSelect"
+                      style="-fx-background-color: #ecf0f1; -fx-border-color: #bdc3c7;">
+              <items>
+                <FXCollections fx:factory="observableArrayList">
+                  <String fx:value="Department"/>
+                  <String fx:value="Name"/>
+                  <String fx:value="Salary Range"/>
+                  <String fx:value="Minimum Performance"/>
+                </FXCollections>
+              </items>
+            </ComboBox>
+          </HBox>
+
+          <StackPane fx:id="searchFormsContainer" style="-fx-padding: 10; -fx-background-color: #ecf0f1; -fx-border-radius: 5; -fx-border-color: #bdc3c7; -fx-border-width: 1;">
+
+            <!-- Department Search -->
+            <VBox fx:id="searchByDepartmentForm" spacing="10" visible="false">
+              <Label text="Search by Department" style="-fx-font-weight: bold;"/>
+              <HBox spacing="10" alignment="CENTER_LEFT">
+                <TextField fx:id="departmentSearchField" promptText="Enter Department" style="-fx-pref-width: 200;"/>
+                <Button text="Search" onAction="#onSearchByDepartment"
+                        style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold;"/>
+              </HBox>
+            </VBox>
+
+            <!-- Name Search -->
+            <VBox fx:id="searchByNameForm" spacing="10" visible="false">
+              <Label text="Search by Name" style="-fx-font-weight: bold;"/>
+              <HBox spacing="10" alignment="CENTER_LEFT">
+                <TextField fx:id="nameSearchField" promptText="Enter Name" style="-fx-pref-width: 200;"/>
+                <Button text="Search" onAction="#onSearchByName"
+                        style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold;"/>
+              </HBox>
+            </VBox>
+
+            <!-- Salary Range Search -->
+            <VBox fx:id="searchBySalaryForm" spacing="10" visible="false">
+              <Label text="Search by Salary Range" style="-fx-font-weight: bold;"/>
+              <HBox spacing="10" alignment="CENTER_LEFT">
+                <TextField fx:id="minSalaryField" promptText="Min Salary" style="-fx-pref-width: 100;"/>
+                <Label text="to"/>
+                <TextField fx:id="maxSalaryField" promptText="Max Salary" style="-fx-pref-width: 100;"/>
+                <Button text="Search" onAction="#onSearchBySalaryRange"
+                        style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold;"/>
+              </HBox>
+            </VBox>
+
+            <!-- Performance Search -->
+            <VBox fx:id="searchByPerformanceForm" spacing="10" visible="false">
+              <Label text="Search by Minimum Performance" style="-fx-font-weight: bold;"/>
+              <HBox spacing="10" alignment="CENTER_LEFT">
+                <TextField fx:id="minPerformanceField" promptText="Minimum Rating (0-100)" style="-fx-pref-width: 200;"/>
+                <Button text="Search" onAction="#onSearchByPerformance"
+                        style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold;"/>
+              </HBox>
+            </VBox>
+          </StackPane>
+
+          <!-- Results Area -->
+          <Label text="Search Results:" style="-fx-font-weight: bold; -fx-text-fill: #34495e;"/>
+<!--          <TextArea fx:id="searchResultsArea" editable="false" wrapText="true"-->
+<!--                    style="-fx-font-family: 'Consolas'; -fx-font-size: 12; -fx-background-color: white; -fx-border-color: #bdc3c7;"/>-->
+          <TextArea fx:id="searchResultsArea" editable="false" wrapText="true" prefHeight="300" style="-fx-font-family: 'Courier New';"/>
+
+        </VBox>
+      </Tab>
+
+      <!-- Third Tab - Sort Employees -->
+      <Tab text="Sort Employees">
+        <VBox spacing="15" style="-fx-background-color: #ffffff; -fx-padding: 20;">
+          <Label text="Sort Employees" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+
+          <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding: 0 0 10 0;">
+            <Label text="Sort By:" style="-fx-font-weight: bold; -fx-text-fill: #34495e;"/>
+            <ComboBox fx:id="sortOptionSelector" onAction="#onSortOptionSelect"
+                      style="-fx-background-color: #ecf0f1; -fx-border-color: #bdc3c7;">
+              <items>
+                <FXCollections fx:factory="observableArrayList">
+                  <String fx:value="Years of Experience"/>
+                  <String fx:value="Highest Salary"/>
+                  <String fx:value="Performance"/>
+                </FXCollections>
+              </items>
+            </ComboBox>
+          </HBox>
+
+          <Label text="Sorted Results:" style="-fx-font-weight: bold; -fx-text-fill: #34495e;"/>
+<!--          <TextArea fx:id="sortResultsArea" editable="false" wrapText="true"-->
+<!--                    style="-fx-font-family: 'Consolas'; -fx-font-size: 12; -fx-background-color: white; -fx-border-color: #bdc3c7;"/>-->
+          <TextArea fx:id="sortResultsArea" editable="false" wrapText="true" prefHeight="300" style="-fx-font-family: 'Courier New';"/>
+        </VBox>
+      </Tab>
+    </TabPane>
+  </center>
+</BorderPane>

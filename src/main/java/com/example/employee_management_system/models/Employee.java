@@ -85,24 +85,5 @@ public class Employee<T> implements Comparable<Employee<T>> {
         return Integer.compare(other.yearsOfExperience, this.yearsOfExperience);
     }
 
-    public void displayEmployeesWith(List<Employee<T>> employees) {
-        System.out.printf("%-10s %-15s %-15s %-10s %-20s %-20s %-10s%n",
-                "ID", "Name", "Department", "Salary", "Performance Rating", "Experience (Years)", "Active");
 
-        for (Employee<T> emp : employees) {
-            System.out.printf("%-10s %-15s %-15s %-10.2f %-20.1f %-20d %-10b%n",
-                    emp.getEmployeeID(), emp.getName(), emp.getDepartment(), emp.getSalary(),
-                    emp.getPerformanceRating(), emp.getYearsOfExperience(), emp.getIsActive());
-        }
-    }
-
-    public void displayEmployeesWithStreams(List<Employee<T>> employees) {
-        System.out.printf("%-10s %-15s %-15s %-10s %-20s %-20s %-10s%n",
-                "ID", "Name", "Department", "Salary", "Performance Rating", "Experience (Years)", "Active");
-
-        employees
-                .forEach(emp -> System.out.printf("%-10s %-15s %-15s %-10.2f %-20.1f %-20d %-10b%n",
-                        emp.getEmployeeID(), emp.getName(), emp.getDepartment(), emp.getSalary(),
-                        emp.getPerformanceRating(), emp.getYearsOfExperience(), emp.getIsActive()));
-    }
 }
