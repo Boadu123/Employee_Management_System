@@ -1,4 +1,6 @@
-package com.example.employee_management_system.models;
+package com.example.employee_management_system.db;
+
+import com.example.employee_management_system.models.Employee;
 
 import java.util.HashMap;
 import java.util.List;

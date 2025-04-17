@@ -1,6 +1,7 @@
-package com.example.employee_management_system.utils;
+package com.example.employee_management_system.services;
 
 import com.example.employee_management_system.models.Employee;
+import com.example.employee_management_system.models.comparators.EmployeeSalaryComparator;
 
 import java.util.*;
 import java.util.stream.Collectors;

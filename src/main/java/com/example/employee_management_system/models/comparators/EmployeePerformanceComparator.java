@@ -1,4 +1,4 @@
-package com.example.employee_management_system.utils;
+package com.example.employee_management_system.models.comparators;
 
 import com.example.employee_management_system.models.Employee;
 import java.util.Comparator;

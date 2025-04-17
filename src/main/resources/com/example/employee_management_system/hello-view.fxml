@@ -7,7 +7,7 @@
 <?import javafx.collections.FXCollections?>
 
 <?import java.lang.String?>
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.employee_management_system.HelloController"
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.employee_management_system.controllers.HelloController"
             style="-fx-background-color: #f5f5f5;">
   <center>
     <TabPane tabClosingPolicy="UNAVAILABLE" style="-fx-background-color: #ffffff; -fx-border-color: #e0e0e0; -fx-border-width: 1;">

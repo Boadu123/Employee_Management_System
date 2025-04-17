@@ -1,9 +1,8 @@
 package com.example.employee_management_system;
 
 import com.example.employee_management_system.models.Employee;
-import com.example.employee_management_system.models.EmployeeDatabase;
+import com.example.employee_management_system.db.EmployeeDatabase;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

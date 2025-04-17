@@ -1,9 +1,9 @@
-package com.example.employee_management_system;
+package com.example.employee_management_system.controllers;
 
 import com.example.employee_management_system.models.Employee;
-import com.example.employee_management_system.models.EmployeeDatabase;
-import com.example.employee_management_system.utils.EmployeePerformanceComparator;
-import com.example.employee_management_system.utils.EmployeeSalaryComparator;
+import com.example.employee_management_system.db.EmployeeDatabase;
+import com.example.employee_management_system.models.comparators.EmployeePerformanceComparator;
+import com.example.employee_management_system.models.comparators.EmployeeSalaryComparator;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.*;
