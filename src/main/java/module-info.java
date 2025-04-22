@@ -1,6 +1,7 @@
 module com.example.employee_management_system {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.logging;
 
 
     opens com.example.employee_management_system to javafx.fxml;

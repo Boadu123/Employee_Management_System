@@ -5,6 +5,8 @@ import com.example.employee_management_system.exceptions.InvalidSalaryException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Employee<T> implements Comparable<Employee<T>> {
     private T employeeID;
@@ -24,6 +26,8 @@ public class Employee<T> implements Comparable<Employee<T>> {
         setYearsOfExperience(yearsOfExperience);
         setActive(isActive);
     }
+
+    private static Logger logger = Logger.getLogger(Employee.class.getName());
 
     //    Getters
     public T getEmployeeID() {
@@ -57,6 +61,7 @@ public class Employee<T> implements Comparable<Employee<T>> {
     //    Setters
     public void setEmployeeID(T employeeID){
         if(employeeID == null){
+            logger.log(Level.WARNING, "Provided Employee ID is empty");
             throw new IllegalArgumentException("Employee ID cannot be null");
         }
         this.employeeID = employeeID;
@@ -65,6 +70,7 @@ public class Employee<T> implements Comparable<Employee<T>> {
     public void setDepartment(String department) throws InvalidDepartmentException {
         List<String> availableDepartment = List.of("Backend", "Frontend", "HR", "Finance", "Marketing");
         if(department == null || !availableDepartment.contains(department)){
+            logger.log(Level.WARNING, "Invalid department entered: ", department);
             throw new InvalidDepartmentException("Not part of the available department");
         }
         this.department = department;
@@ -72,6 +78,7 @@ public class Employee<T> implements Comparable<Employee<T>> {
 
     public void setName(String name){
         if(name == null || name.trim().isEmpty()){
+            logger.log(Level.WARNING, "Invalid name entered: ", name);
             throw new IllegalArgumentException("Name cannot be empty");
         }
         this.name = name;
@@ -79,6 +86,7 @@ public class Employee<T> implements Comparable<Employee<T>> {
 
     public void setSalary(double salary) throws InvalidSalaryException {
         if(salary < 0 ){
+            logger.log(Level.WARNING, "Attempted to set salary on a negative value ", salary);
             throw new InvalidSalaryException("Salary cannot be negative");
         }
         this.salary = salary;
@@ -86,6 +94,7 @@ public class Employee<T> implements Comparable<Employee<T>> {
 
     public void setYearsOfExperience(int yearsOfExperience){
         if(yearsOfExperience < 0){
+            logger.log(Level.WARNING, "Attempted to put Years of Experience to a negative number: ", yearsOfExperience);
             throw new IllegalArgumentException("Years of experience should be greater than 1");
         }
         this.yearsOfExperience = yearsOfExperience;
@@ -93,6 +102,7 @@ public class Employee<T> implements Comparable<Employee<T>> {
 
     public void setPerformanceRating(double performanceRating){
         if(performanceRating < 0.0 || performanceRating > 5.0){
+            logger.log(Level.WARNING, "Performance Rating is not within Range");
             throw new IllegalArgumentException("Performance Rating should be between 0.0 and 5.0.");
         }
         this.performanceRating = performanceRating;
