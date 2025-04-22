@@ -56,7 +56,8 @@ public class EmployeeDatabase<T> {
 //    Update Employee details in the System
 public boolean updateEmployeeFields(T employeeId, Map<String, Object> updates) {
     try {
-        Employee<T> employee = employeeDB.get(employeeId);
+//        Introducing a bug with "wrong-id"
+        Employee<T> employee = employeeDB.get("wrong-id");
         if (employee == null) {
             return false;
         }
