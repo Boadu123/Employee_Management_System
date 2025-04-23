@@ -1,5 +1,6 @@
 package com.example.employee_management_system.db;
 
+import com.example.employee_management_system.exceptions.InvalidDepartmentException;
 import com.example.employee_management_system.models.Employee;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,7 +38,7 @@ class EmployeeDatabaseTest {
 
     @Test
     void searchByDepartment() {
-        Employee<String> emp2 = new Employee<>("E001", "Jane Smith", "HR", 65000.0, 4.2, 3, true);
+        Employee<String> emp2 = new Employee<>("E001", "Asiedu", "HR", 65000.0, 4.2, 3, true);
         database.addEmployee(employee);
         database.addEmployee(emp2);
 
@@ -46,6 +47,18 @@ class EmployeeDatabaseTest {
                 .toList();
 
         assertEquals(1, itEmployees.size());
-        assertEquals("Jane Smith", itEmployees.getFirst().getName());
+        assertEquals("Asiedu", itEmployees.getFirst().getName());
     }
+
+    @Test
+    void searchByInvalidDepartment_shouldThrowException() {
+        Employee<String> emp2 = new Employee<>("E002", "Asiedu", "HR", 65000.0, 4.2, 3, true);
+        database.addEmployee(employee);
+        database.addEmployee(emp2);
+
+        assertThrows(InvalidDepartmentException.class, () -> {
+            database.searchByDepartment("ghh"); // This department doesn't exist
+        });
+    }
+
 }
