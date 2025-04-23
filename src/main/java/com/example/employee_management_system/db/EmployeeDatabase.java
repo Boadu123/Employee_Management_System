@@ -14,52 +14,30 @@ public class EmployeeDatabase<T> {
 
     private static final Logger logger = Logger.getLogger(EmployeeDatabase.class.getName());
 
-
     private Map<T, Employee<T>> employeeDB = new HashMap<>();
 
 //    Create a new Employee
     public void addEmployee(Employee<T> employee){
-        try {
-            employeeDB.put(employee.getEmployeeID(), employee);
-            logger.info("Employee added successfully: " + employee.getEmployeeID());
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "Error adding employee: " + e.getMessage(), e);
-        } finally {
-            logger.info("addEmployee operation completed.");
-        }
+        employeeDB.put(employee.getEmployeeID(), employee);
     }
 
 //    Delete a new Employee
-    public void removeEmployee(T employeeID){
-        try {
-            employeeDB.remove(employeeID);
-            logger.info("Employee removed: " + employeeID);
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "Error removing employee: " + e.getMessage(), e);
-        } finally {
-            logger.info("removeEmployee operation completed.");
-        }
+    public void removeEmployee(T EmployeeID){
+        employeeDB.remove(EmployeeID);
     }
 
 //    Get all employees in the systems
     public List<Employee<T>> getAllEmployees(){
-        try {
-            return employeeDB.values().stream().toList();
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "Error retrieving employees: " + e.getMessage(), e);
-            return List.of();
-        } finally {
-            logger.info("getAllEmployees operation completed.");
-        }
+        return employeeDB.values().stream().toList();
     }
 
 //    Update Employee details in the System
-public boolean updateEmployeeFields(T employeeId, Map<String, Object> updates) {
-    try {
+    public boolean updateEmployeeFields(T employeeId, Map<String, Object> updates) {
         Employee<T> employee = employeeDB.get(employeeId);
         if (employee == null) {
             return false;
         }
+
         for (Map.Entry<String, Object> entry : updates.entrySet()) {
             String field = entry.getKey().toLowerCase();
             Object newValue = entry.getValue();
@@ -97,17 +75,12 @@ public boolean updateEmployeeFields(T employeeId, Map<String, Object> updates) {
                     break;
                 default:
                     System.out.println("Invalid field: " + field);
+                    // Continue updating other fields, but optionally you can return false here
                     break;
             }
         }
         return true;
-    } catch (Exception e) {
-        logger.log(Level.SEVERE, "Error updating employee: " + e.getMessage(), e);
-        return false;
-    } finally {
-        logger.info("updateEmployeeFields operation completed.");
     }
-}
 
     // Search by Department
     public List<Employee<T>> searchByDepartment(String department) throws InvalidDepartmentException {
@@ -117,45 +90,26 @@ public boolean updateEmployeeFields(T employeeId, Map<String, Object> updates) {
             logger.log(Level.WARNING, "Invalid department entered for search: " + department);
             throw new InvalidDepartmentException("The department '" + department + "' is not recognized.");
         }
-
-        try {
-            return employeeDB.values().stream()
-                    .filter(emp -> emp.getDepartment().equalsIgnoreCase(department))
-                    .collect(Collectors.toList());
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "Error searching by department: " + e.getMessage(), e);
-            return List.of();
-        } finally {
-            logger.info("searchByDepartment operation completed.");
-        }
+        return employeeDB.values().stream()
+             .filter(emp -> emp.getDepartment().equalsIgnoreCase(department))
+             .collect(Collectors.toList());
     }
 
 
     // Search by Name
     public List<Employee<T>> searchByName(String searchTerm) {
-        try {
             List<Employee<T>> results = employeeDB.values().stream()
                     .filter(emp -> emp.getName().toLowerCase().contains(searchTerm.toLowerCase()))
                     .collect(Collectors.toList());
-
             if (results.isEmpty()) {
                 logger.log(Level.WARNING, "No employees found with name containing: " + searchTerm);
                 throw new IllegalArgumentException("No employees found matching the name: " + searchTerm);
             }
-
             return results;
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "Error searching by name: " + e.getMessage(), e);
-            throw e; // Rethrow so caller knows something went wrong
-        } finally {
-            logger.info("searchByName operation completed.");
-        }
     }
-
 
     //  Get employees with performance above minimum rating
     public List<Employee<T>> filterByPerformance(double minRating) {
-        try {
             if (minRating < 0.0 || minRating > 5.0) {
                 logger.log(Level.WARNING, "Invalid performance rating filter value: " + minRating);
                 throw new IllegalArgumentException("Performance rating filter must be between 0.0 and 5.0");
@@ -169,25 +123,15 @@ public boolean updateEmployeeFields(T employeeId, Map<String, Object> updates) {
                 logger.log(Level.WARNING, "No employees found with performance rating >= " + minRating);
                 throw new IllegalArgumentException("No employees found matching the performance criteria.");
             }
-
             return results;
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "Error filtering by performance: " + e.getMessage(), e);
-            throw e;
-        } finally {
-            logger.info("filterByPerformance operation completed.");
-        }
     }
 
     //   Employees within a specific Salary Range
     public List<Employee<T>> filterBySalaryRange(double min, double max) {
-        try {
             if (min < 0 || max < 0) {
                 logger.log(Level.WARNING, "Invalid salary range: min or max is negative. Min: " + min + ", Max: " + max);
                 throw new IllegalArgumentException("Salary values cannot be negative.");
-            }
-
-            if (min > max) {
+            }else if (min > max) {
                 logger.log(Level.WARNING, "Invalid salary range: min is greater than max. Min: " + min + ", Max: " + max);
                 throw new IllegalArgumentException("Minimum salary cannot be greater than maximum salary.");
             }
@@ -195,19 +139,11 @@ public boolean updateEmployeeFields(T employeeId, Map<String, Object> updates) {
             List<Employee<T>> results = employeeDB.values().stream()
                     .filter(emp -> emp.getSalary() >= min && emp.getSalary() <= max)
                     .collect(Collectors.toList());
-
             if (results.isEmpty()) {
                 logger.log(Level.WARNING, "No employees found in salary range: Min: " + min + ", Max: " + max);
                 throw new IllegalArgumentException("No employees found matching the salary criteria.");
             }
-
             return results;
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "Error filtering by salary range: " + e.getMessage(), e);
-            throw e;
-        } finally {
-            logger.info("filterBySalaryRange operation completed.");
-        }
     }
 
 

@@ -10,9 +10,9 @@ import java.util.Map;
 public class Test {
 
     public static void main(String[] args){
-        Employee<String> newEmployee = new Employee<>("E1009", "Benedict Boadu-Boateng", "Software Development", 8500.00, 3.0, 6, true);
-        Employee<String> newEmployee1 = new Employee<>("E1003", "Thomson Asiedu", "Frontend Engineer", 900.00, 4.0, 4, true);
-        Employee<String> newEmployee2 = new Employee<>("E1005", "John Badu", "Backend Engineer", 230.78, 5.1, 9, true);
+        Employee<String> newEmployee = new Employee<>("E1009", "Benedict Boadu-Boateng", "HR", 8500.00, 3.0, 6, true);
+        Employee<String> newEmployee1 = new Employee<>("E1003", "Thomson Asiedu", "Backend", 900.00, 4.0, 4, true);
+        Employee<String> newEmployee2 = new Employee<>("E1005", "John Badu", "Backend", 230.78, 5.1, 9, true);
 
         EmployeeDatabase<String> database = new EmployeeDatabase<>();
         database.addEmployee(newEmployee);
@@ -30,7 +30,7 @@ public class Test {
 
         List<Employee<String>> allEmployees = database.getAllEmployees();
 
-        List<Employee<String>> searchedData = database.searchByDepartment("Backend Engineer");
+        List<Employee<String>> searchedData = database.searchByDepartment("Backend");
         System.out.println("DEPARTMENT SEARCH: "+ searchedData);
 
         for(Employee<String> emp: allEmployees){

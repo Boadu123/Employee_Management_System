@@ -1,5 +1,6 @@
 package com.example.employee_management_system.controllers;
 
+import com.example.employee_management_system.exceptions.InvalidDepartmentException;
 import com.example.employee_management_system.models.Employee;
 import com.example.employee_management_system.db.EmployeeDatabase;
 import com.example.employee_management_system.models.comparators.EmployeePerformanceComparator;
@@ -61,8 +62,12 @@ public class HelloController {
             return;
         }
 
-        List<Employee<String>> results = database.searchByDepartment(department);
-        searchResultsArea.setText(formatEmployeeList(results));
+        try {
+            List<Employee<String>> results = database.searchByDepartment(department);
+            searchResultsArea.setText(formatEmployeeList(results));
+        } catch (InvalidDepartmentException e) {
+            searchResultsArea.setText("Error: " + e.getMessage());
+        }
     }
 
     @FXML
@@ -73,8 +78,12 @@ public class HelloController {
             return;
         }
 
-        List<Employee<String>> results = database.searchByName(name);
-        searchResultsArea.setText(formatEmployeeList(results));
+        try {
+            List<Employee<String>> results = database.searchByName(name);
+            searchResultsArea.setText(formatEmployeeList(results));
+        } catch (IllegalArgumentException e) {
+            searchResultsArea.setText("Error: " + e.getMessage());
+        }
     }
 
     @FXML
@@ -86,8 +95,12 @@ public class HelloController {
                 return;
             }
 
-            List<Employee<String>> results = database.filterByPerformance(minRating);
-            searchResultsArea.setText(formatEmployeeList(results));
+            try {
+                List<Employee<String>> results = database.filterByPerformance(minRating);
+                searchResultsArea.setText(formatEmployeeList(results));
+            } catch (IllegalArgumentException e) {
+                searchResultsArea.setText("Error: " + e.getMessage());
+            }
         } catch (NumberFormatException e) {
             searchResultsArea.setText("Please enter a valid performance rating (0-100)");
         }
@@ -109,8 +122,12 @@ public class HelloController {
                 return;
             }
 
-            List<Employee<String>> results = database.filterBySalaryRange(min, max);
-            searchResultsArea.setText(formatEmployeeList(results));
+            try {
+                List<Employee<String>> results = database.filterBySalaryRange(min, max);
+                searchResultsArea.setText(formatEmployeeList(results));
+            } catch (IllegalArgumentException e) {
+                searchResultsArea.setText("Error: " + e.getMessage());
+            }
         } catch (NumberFormatException e) {
             searchResultsArea.setText("Please enter valid salary numbers");
         }
